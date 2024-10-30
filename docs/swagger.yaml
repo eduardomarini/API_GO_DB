@@ -1,0 +1,33 @@
+definitions:
+  models.Autores:
+    properties:
+      Data_nascimento:
+        type: string
+      ID_autor:
+        type: integer
+      Nacionalidade:
+        type: string
+      Nome:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /autores:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all authors
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Autores'
+            type: array
+      summary: Retrieve all authors
+      tags:
+      - authors
+swagger: "2.0"

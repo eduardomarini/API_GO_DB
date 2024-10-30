@@ -5,10 +5,14 @@ import (
 	"log"
 
 	"github.com/eduardomarini/API_GO_DB/db"
+	_ "github.com/eduardomarini/API_GO_DB/docs"
 	"github.com/eduardomarini/API_GO_DB/migrations"
 	"github.com/eduardomarini/API_GO_DB/routes"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jackc/pgx/v4/stdlib"
+	swaggerFiles "github.com/swaggo/files"
+	_ "github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
@@ -31,6 +35,8 @@ func main() {
 
 	// configurar a rota para obter autores
 	r.GET("/autores", routes.GetAutores(database))
+	// Configura a rota para a documentação do swagger
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Executa o servidor
 	if err := r.Run(":8080"); err != nil {

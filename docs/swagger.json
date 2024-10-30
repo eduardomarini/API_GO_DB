@@ -1,0 +1,53 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/autores": {
+            "get": {
+                "description": "Get a list of all authors",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "Retrieve all authors",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Autores"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Autores": {
+            "type": "object",
+            "properties": {
+                "Data_nascimento": {
+                    "type": "string"
+                },
+                "ID_autor": {
+                    "type": "integer"
+                },
+                "Nacionalidade": {
+                    "type": "string"
+                },
+                "Nome": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
