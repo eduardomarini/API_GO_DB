@@ -1,7 +1,6 @@
 package db
 
 import (
-	"database/sql"
 	"fmt"
 	"time"
 
@@ -33,17 +32,22 @@ func Connect() (*gorm.DB, error) {
 	}
 
 	// Configurações adicionais de conexão
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
-	sqlDB.SetConnMaxLifetime(time.Hour)
+	sqlDB.SetMaxIdleConns(10)           // número máximo de conexões ociosas
+	sqlDB.SetMaxOpenConns(100)          // número máximo de conexões abertas
+	sqlDB.SetConnMaxLifetime(time.Hour) // tempo máximo de vida de uma conexão
 
 	fmt.Println("Conexão com o banco de dados bem-sucedida!")
 	return db, nil
 }
 
 // Fechar conexão com o banco de dados
-func Close(db *sql.DB) error {
-	if err := db.Close(); err != nil {
+func Close(db *gorm.DB) error {
+	sqlDB, err := db.DB()
+	if err != nil {
+		return fmt.Errorf("erro ao obter a conexão SQL para fechar: %v", err)
+	}
+
+	if err := sqlDB.Close(); err != nil {
 		return fmt.Errorf("erro ao fechar a conexão com o banco de dados: %v", err)
 	}
 	return nil
