@@ -10,6 +10,21 @@ definitions:
       Nome:
         type: string
     type: object
+  models.Livros:
+    properties:
+      Ano_publicacao:
+        type: integer
+      ID_autor:
+        type: integer
+      ID_categoria:
+        type: integer
+      ID_livro:
+        type: integer
+      Isbn:
+        type: string
+      Titulo:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -51,4 +66,21 @@ paths:
       summary: Retrieve author by ID
       tags:
       - Autores
+  /livros:
+    get:
+      consumes:
+      - application/json
+      description: Obtém uma lista de todos os livros
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Livros'
+            type: array
+      summary: Retrieve all books
+      tags:
+      - Livros
 swagger: "2.0"

@@ -72,6 +72,32 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/livros": {
+            "get": {
+                "description": "Obtém uma lista de todos os livros",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Retrieve all books",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Livros"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -88,6 +114,29 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "Nome": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Livros": {
+            "type": "object",
+            "properties": {
+                "Ano_publicacao": {
+                    "type": "integer"
+                },
+                "ID_autor": {
+                    "type": "integer"
+                },
+                "ID_categoria": {
+                    "type": "integer"
+                },
+                "ID_livro": {
+                    "type": "integer"
+                },
+                "Isbn": {
+                    "type": "string"
+                },
+                "Titulo": {
                     "type": "string"
                 }
             }
