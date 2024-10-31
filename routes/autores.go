@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/eduardomarini/API_GO_DB/models"
@@ -50,12 +49,12 @@ func GetAutorID(db *gorm.DB) gin.HandlerFunc {
 
 		// Realiza a consulta no banco de dados
 		if err := db.Where("id = ?", id).First(&autor).Error; err != nil {
-			fmt.Println("erro ao recuperar o autor pelo ID", err)
+			//fmt.Println("erro ao recuperar o autor pelo ID", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar o autor"})
 			return
 		}
 
 		c.JSON(http.StatusOK, autor)
-		fmt.Print("autor", autor)
+		//fmt.Print("autor", autor)
 	}
 }
