@@ -129,6 +129,32 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/usuarios": {
+            "get": {
+                "description": "Obtém uma lista de todos os usuários",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Retrieve all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Usuarios"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -168,6 +194,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "Titulo": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Usuarios": {
+            "type": "object",
+            "properties": {
+                "Data_registro": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "IS_usuario": {
+                    "type": "integer"
+                },
+                "Nome": {
+                    "type": "string"
+                },
+                "Telefone": {
                     "type": "string"
                 }
             }

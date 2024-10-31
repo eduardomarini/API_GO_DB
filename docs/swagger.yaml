@@ -25,6 +25,19 @@ definitions:
       Titulo:
         type: string
     type: object
+  models.Usuarios:
+    properties:
+      Data_registro:
+        type: string
+      Email:
+        type: string
+      IS_usuario:
+        type: integer
+      Nome:
+        type: string
+      Telefone:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -103,4 +116,21 @@ paths:
       summary: Retrieve book by ID
       tags:
       - Livros
+  /usuarios:
+    get:
+      consumes:
+      - application/json
+      description: Obtém uma lista de todos os usuários
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Usuarios'
+            type: array
+      summary: Retrieve all users
+      tags:
+      - Usuários
 swagger: "2.0"

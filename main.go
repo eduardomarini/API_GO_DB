@@ -41,6 +41,8 @@ func main() {
 	r.GET("/livros", routes.GetLivros(database))
 	// configurar a rota para obter um livro por ID
 	r.GET("/livros/:id", routes.GetLivroID(database))
+	// configurar a rota para obter usuários
+	r.GET("/usuarios", routes.GetUsuarios(database))
 	// Configura a rota para a documentação do swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
