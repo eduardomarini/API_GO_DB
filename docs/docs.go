@@ -17,7 +17,7 @@ const docTemplate = `{
     "paths": {
         "/autores": {
             "get": {
-                "description": "Get a list of all authors",
+                "description": "Obtém uma lista de todos os autores",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,7 +25,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "authors"
+                    "Autores"
                 ],
                 "summary": "Retrieve all authors",
                 "responses": {
@@ -36,6 +36,38 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.Autores"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/autores/{id}": {
+            "get": {
+                "description": "Obtém um autor de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Retrieve author by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Autores"
                         }
                     }
                 }
