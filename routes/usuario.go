@@ -30,3 +30,26 @@ func GetUsuarios(db *gorm.DB) gin.HandlerFunc {
 
 	}
 }
+
+// GetUsuarioID godoc
+// @Summary 	Retrieve user by ID
+// @Description 	Obtém um usuário de acordo com o ID
+// @Tags 		Usuários
+// @Accept 		json
+// @Produce 		json
+// @Param 		id path int true "User ID"
+// @Success 	200 {object} models.Usuarios
+// @Router 		/usuarios/{id} [get]
+func GetUsuarioID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var usuario models.Usuarios
+		id := c.Param("id")
+
+		// Realiza a consulta no banco de dados
+		if err := db.Where("id = ?", id).First(&usuario).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar o usuário"})
+			return
+		}
+		c.JSON(http.StatusOK, usuario)
+	}
+}

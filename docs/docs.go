@@ -155,6 +155,38 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/usuarios/{id}": {
+            "get": {
+                "description": "Obtém um usuário de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Retrieve user by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

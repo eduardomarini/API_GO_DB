@@ -133,4 +133,25 @@ paths:
       summary: Retrieve all users
       tags:
       - Usuários
+  /usuarios/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Obtém um usuário de acordo com o ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Usuarios'
+      summary: Retrieve user by ID
+      tags:
+      - Usuários
 swagger: "2.0"
