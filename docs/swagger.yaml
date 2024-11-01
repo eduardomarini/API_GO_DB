@@ -10,6 +10,13 @@ definitions:
       Nome:
         type: string
     type: object
+  models.Categorias:
+    properties:
+      Descricao:
+        type: string
+      ID_categoria:
+        type: integer
+    type: object
   models.Livros:
     properties:
       Ano_publicacao:
@@ -79,6 +86,21 @@ paths:
       summary: Retrieve author by ID
       tags:
       - Autores
+  /categorias:
+    get:
+      description: Obtém uma lista de todas as categorias
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Categorias'
+            type: array
+      summary: Retrieve all categories
+      tags:
+      - Categorias
   /livros:
     get:
       consumes:

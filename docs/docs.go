@@ -73,6 +73,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/categorias": {
+            "get": {
+                "description": "Obtém uma lista de todas as categorias",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Retrieve all categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Categorias"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/livros": {
             "get": {
                 "description": "Obtém uma lista de todos os livros",
@@ -204,6 +227,17 @@ const docTemplate = `{
                 },
                 "Nome": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Categorias": {
+            "type": "object",
+            "properties": {
+                "Descricao": {
+                    "type": "string"
+                },
+                "ID_categoria": {
+                    "type": "integer"
                 }
             }
         },
