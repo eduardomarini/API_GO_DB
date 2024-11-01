@@ -101,6 +101,27 @@ paths:
       summary: Retrieve all categories
       tags:
       - Categorias
+  /categorias/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Obtém uma categoria de acordo com o ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Categorias'
+      summary: Retrieve category by ID
+      tags:
+      - Categorias
   /livros:
     get:
       consumes:

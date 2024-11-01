@@ -28,3 +28,27 @@ func GetCategorias(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, categorias)
 	}
 }
+
+// GetCategoriaID godoc
+// @Summary      Retrieve category by ID
+// @Description  Obtém uma categoria de acordo com o ID
+// @Tags         Categorias
+// @Accept       json
+// @Produce      json
+// @Param        id path int true "Category ID"
+// @Success      200 {object} models.Categorias
+// @Router       /categorias/{id} [get]
+func GetCategoriaID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var categoria models.Categorias
+		id := c.Param("id")
+
+		// Realiza a consulta no banco de dados
+		err := db.Where("id = ?", id).First(&categoria).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar a categoria"})
+			return
+		}
+		c.JSON(http.StatusOK, categoria)
+	}
+}

@@ -96,6 +96,38 @@ const docTemplate = `{
                 }
             }
         },
+        "/categorias/{id}": {
+            "get": {
+                "description": "Obtém uma categoria de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Retrieve category by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Categorias"
+                        }
+                    }
+                }
+            }
+        },
         "/livros": {
             "get": {
                 "description": "Obtém uma lista de todos os livros",
