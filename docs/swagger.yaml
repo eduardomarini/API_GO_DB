@@ -65,6 +65,27 @@ paths:
       summary: Retrieve all authors
       tags:
       - Autores
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um novo autor
+      parameters:
+      - description: Author object
+        in: body
+        name: autor
+        required: true
+        schema:
+          $ref: '#/definitions/models.Autores'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Autores'
+      summary: Add a new author
+      tags:
+      - Autores
   /autores/{id}:
     get:
       consumes:

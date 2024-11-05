@@ -39,6 +39,38 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Adiciona um novo autor",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Add a new author",
+                "parameters": [
+                    {
+                        "description": "Author object",
+                        "name": "autor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Autores"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Autores"
+                        }
+                    }
+                }
             }
         },
         "/autores/{id}": {

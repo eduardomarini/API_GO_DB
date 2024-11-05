@@ -54,6 +54,8 @@ func main() {
 	r.POST("/categorias", routes.PostCategoria(database))
 	// configurar a rota para adicionar livro
 	r.POST("/livros", routes.PostLivro(database))
+	// configurar a rota para adicionar autor
+	r.POST("/autores", routes.PostAutor(database))
 
 	// Configura a rota para a documentação do swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

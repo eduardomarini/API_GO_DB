@@ -56,5 +56,40 @@ func GetAutorID(db *gorm.DB) gin.HandlerFunc {
 
 		c.JSON(http.StatusOK, autor)
 		//fmt.Print("autor", autor)
+
+		//fmt.Println("autor", autor)
+	}
+}
+
+// PostAutor godoc
+// @Summary      Add a new author
+// @Description  Adiciona um novo autor
+// @Tags         Autores
+// @Accept       json
+// @Produce      json
+// @Param        autor body models.Autores true "Author object"
+// @Success      201 {object} models.Autores
+// @Router       /autores [post]
+func PostAutor(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var autor models.Autores
+
+		// Faz o bind JSON para o struct Autores
+		if err := c.ShouldBindJSON(&autor); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		// salva o novo autor no banco de dados
+		if err := db.Create(&autor).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao salvar o autor"})
+			return
+		}
+
+		// retorna o autor criado
+		c.JSON(http.StatusCreated, gin.H{"message": "Autor criado com sucesso", "autor": autor})
+
+		//fmt.Println("autorPOST", autor)
 	}
 }
