@@ -184,6 +184,38 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Adiciona um novo livro",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Add a new book",
+                "parameters": [
+                    {
+                        "description": "Book object",
+                        "name": "livro",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Livros"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Livros"
+                        }
+                    }
+                }
             }
         },
         "/livros/{id}": {

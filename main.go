@@ -49,8 +49,12 @@ func main() {
 	r.GET("/categorias", routes.GetCategorias(database))
 	// configurar a rota para obter uma categoria por ID
 	r.GET("/categorias/:id", routes.GetCategoriaID(database))
+
 	// configurar a rota para adicionar categoria
 	r.POST("/categorias", routes.PostCategoria(database))
+	// configurar a rota para adicionar livro
+	r.POST("/livros", routes.PostLivro(database))
+
 	// Configura a rota para a documentação do swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

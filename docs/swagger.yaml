@@ -160,6 +160,27 @@ paths:
       summary: Retrieve all books
       tags:
       - Livros
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um novo livro
+      parameters:
+      - description: Book object
+        in: body
+        name: livro
+        required: true
+        schema:
+          $ref: '#/definitions/models.Livros'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Livros'
+      summary: Add a new book
+      tags:
+      - Livros
   /livros/{id}:
     get:
       consumes:

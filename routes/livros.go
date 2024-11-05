@@ -54,3 +54,33 @@ func GetLivroID(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, livro)
 	}
 }
+
+// postLivro godoc
+// @Summary Add a new book
+// @Description Adiciona um novo livro
+// @Tags Livros
+// @Accept json
+// @Produce json
+// @Param livro body models.Livros true "Book object"
+// @Success 201 {object} models.Livros
+// @Router /livros [post]
+func PostLivro(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var livro models.Livros
+
+		// Faz o bind do JSON para o struct Livros
+		err := c.ShouldBindJSON(&livro)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		// salva o novo livro no banco de dados
+		if err := db.Create(&livro).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao criar o livro"})
+			return
+		}
+		// Retorna o livro criado
+		c.JSON(http.StatusCreated, gin.H{"message": "Livro criado com sucesso", "Livro": livro})
+	}
+}
