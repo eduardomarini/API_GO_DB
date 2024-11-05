@@ -52,3 +52,35 @@ func GetCategoriaID(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, categoria)
 	}
 }
+
+// PostCategoria godoc
+// @Summary      Add a new category
+// @Description  Adiciona uma nova categoria
+// @Tags         Categorias
+// @Accept       json
+// @Produce      json
+// @Param        categoria body models.Categorias true "Category object"
+// @Success      201 {object} models.Categorias
+// @Router       /categorias [post]
+func PostCategoria(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var categoria models.Categorias
+
+		// recebe e valida o JSON da requisição
+		if err := c.ShouldBindJSON(&categoria); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		// salva a nova categoria no banco de dados
+		err := db.Create(&categoria).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao criar a categoria"})
+			return
+		}
+
+		// retorna a categoria criada
+		c.JSON(http.StatusCreated, gin.H{"message": "Categoria criada com sucesso", "categoria": categoria})
+	}
+}

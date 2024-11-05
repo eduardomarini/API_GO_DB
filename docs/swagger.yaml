@@ -101,6 +101,27 @@ paths:
       summary: Retrieve all categories
       tags:
       - Categorias
+    post:
+      consumes:
+      - application/json
+      description: Adiciona uma nova categoria
+      parameters:
+      - description: Category object
+        in: body
+        name: categoria
+        required: true
+        schema:
+          $ref: '#/definitions/models.Categorias'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Categorias'
+      summary: Add a new category
+      tags:
+      - Categorias
   /categorias/{id}:
     get:
       consumes:
