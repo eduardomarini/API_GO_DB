@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
@@ -18,6 +19,13 @@ const (
 )
 
 func Connect() (*gorm.DB, error) {
+
+	// obtém o nome do banco de dados a partir da variável de ambiente ou utiliza o padrão "postgres"
+	dbName := os.Getenv("DB_NAME")
+	if dbName == "" {
+		dbName = "postgres"
+	}
+
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable", user, password, host, port, dbname)
 
 	// verifica a conexão ao banco de dados
