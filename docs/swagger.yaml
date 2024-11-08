@@ -239,6 +239,27 @@ paths:
       summary: Retrieve all users
       tags:
       - Usuários
+    post:
+      consumes:
+      - application/json
+      description: Adiciona umo novo usuário
+      parameters:
+      - description: User object
+        in: body
+        name: usuario
+        required: true
+        schema:
+          $ref: '#/definitions/models.Usuarios'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Usuarios'
+      summary: Add a new user
+      tags:
+      - Usuários
   /usuarios/{id}:
     get:
       consumes:

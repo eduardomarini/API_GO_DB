@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/eduardomarini/API_GO_DB/models"
 	"github.com/gin-gonic/gin"
@@ -51,5 +52,45 @@ func GetUsuarioID(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, usuario)
+	}
+}
+
+// Postusuario godoc
+// @summary Add a new user
+// @Description Adiciona umo novo usuário
+// @Tags Usuários
+// @Accept json
+// @Produce json
+// @Param usuario body models.Usuarios true "User object"
+// @Success 201 {object} models.Usuarios
+// @Router /usuarios [post]
+func PostUsuario(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var usuario models.Usuarios
+
+		// Faz o bind do Json para o struct Usuario
+		if err := c.ShouldBindJSON(&usuario); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		// Valida o formato da data de registro no formato "YYYY-MM-DD"
+		if usuario.Data_registro != "" {
+			if _, err := time.Parse("2006-01-02", usuario.Data_registro); err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "Data de registro inválida"})
+				return
+			}
+		}
+
+		// salva o novo usuário no banco de dados
+		if err := db.Create(&usuario).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao criar usuário"})
+			return
+		}
+
+		// retorna o usuário criado
+		c.JSON(http.StatusCreated, gin.H{"message": "Usuário criado com sucesso", "usuario": usuario})
+
 	}
 }

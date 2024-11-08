@@ -67,7 +67,7 @@ func PostCategoria(db *gorm.DB) gin.HandlerFunc {
 
 		var categoria models.Categorias
 
-		// Faz o bind do JSON para o struct Cateforias
+		// Faz o bind do JSON para o struct Categorias
 		if err := c.ShouldBindJSON(&categoria); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
