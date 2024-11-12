@@ -2,7 +2,6 @@ package routes
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/eduardomarini/API_GO_DB/models"
 	"github.com/gin-gonic/gin"
@@ -80,14 +79,6 @@ func PostAutor(db *gorm.DB) gin.HandlerFunc {
 		if err := c.ShouldBindJSON(&autor); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
-		}
-
-		// valida o formato da data de nascimento no formato "YYYY-MM-DD"
-		if autor.Data_nascimento != "" {
-			if _, err := time.Parse("2006-01-02", autor.Data_nascimento); err != nil {
-				c.JSON(http.StatusBadRequest, gin.H{"error": "A data de nascimento deve estar no formato 'YYYY-MM-DD'"})
-				return
-			}
 		}
 
 		// salva o novo autor no banco de dados
