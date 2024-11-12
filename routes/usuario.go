@@ -2,7 +2,6 @@ package routes
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/eduardomarini/API_GO_DB/models"
 	"github.com/gin-gonic/gin"
@@ -73,14 +72,6 @@ func PostUsuario(db *gorm.DB) gin.HandlerFunc {
 		if err := c.ShouldBindJSON(&usuario); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
-		}
-
-		// Valida o formato da data de registro no formato "YYYY-MM-DD"
-		if usuario.Data_registro != "" {
-			if _, err := time.Parse("2006-01-02", usuario.Data_registro); err != nil {
-				c.JSON(http.StatusBadRequest, gin.H{"error": "Data de registro inválida"})
-				return
-			}
 		}
 
 		// salva o novo usuário no banco de dados
