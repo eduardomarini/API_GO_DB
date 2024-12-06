@@ -95,25 +95,30 @@ func PostAutor(db *gorm.DB) gin.HandlerFunc {
 	}
 }
 
-// PutAutorID godoc
-// @Summary      Remove author by ID
+// DeleteAutorID godoc
+// @Summary      Delete author by ID
 // @Description  Remove um autor de acordo com o ID
 // @Tags         Autores
 // @Accept       json
 // @Produce      json
 // @Param        id path int true "Author ID"
 // @Success      200 {object} models.Autores
-// @Router       /autores/{id} [remove]
+// @Router       /autores/{id} [delete]
 func DeleteAutorID(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-
 		var autor models.Autores
 		id := c.Param("id")
 
-		// Remove o autor através do ID
+		// Consulta o autor pelo ID
 		err := db.Where("id = ?", id).First(&autor).Error
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar a categoria"})
+			return
+		}
+
+		// deleta o autor
+		if err := db.Delete(&autor).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar o autor"})
 			return
 		}
 		c.JSON(http.StatusOK, autor)
