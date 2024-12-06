@@ -103,6 +103,36 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "Remove um autor de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Delete author by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Autores"
+                        }
+                    }
+                }
             }
         },
         "/categorias": {
@@ -433,7 +463,7 @@ const docTemplate = `{
                 "Email": {
                     "type": "string"
                 },
-                "IS_usuario": {
+                "ID_usuario": {
                     "type": "integer"
                 },
                 "Nome": {

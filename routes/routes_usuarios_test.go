@@ -36,9 +36,14 @@ func TestGetUsuarios(t *testing.T) {
 
 	testDB, err := SetupTestDB()
 	if err != nil {
-		fmt.Errorf("erro ao configurar o banco de dados de teste: %v", err)
+		t.Fatalf("erro ao configurar o banco de dados de teste: %v", err)
 	}
 	defer db.Close(testDB) // Fecha o banco de daods após os teste
+
+	// limpa o banco de dados antes de popular os dados de teste
+	if err := utils.ResetTestUsuariosDB(testDB); err != nil {
+		t.Fatalf("erro ao limpar o banco de dados de teste: %v", err)
+	}
 
 	// popula o banco de dados de teste
 	testUsers := []models.Usuarios{
@@ -75,13 +80,13 @@ func TestGetUsuarios(t *testing.T) {
 
 	// Verifica o corpo da resposta
 	expectedJSON := `[{
-			"ID_Usuario": 1,
+			"ID_usuario": 1,
 			"Nome": "Marina",
 			"Email": "marinamarini@example.com",
 			"Telefone": "(XX)99999-9999",
 			"Data_registro": "2021-09-01"
 		}, {
-			"ID_Usuario": 2,
+			"ID_usuario": 2,
 			"Nome": "Eduardo",
 			"Email": "eduardoribeiromarini@gmail.com",
 			"Telefone": "(XX)99999-9999",

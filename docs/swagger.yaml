@@ -38,7 +38,7 @@ definitions:
         type: string
       Email:
         type: string
-      IS_usuario:
+      ID_usuario:
         type: integer
       Nome:
         type: string
@@ -87,6 +87,26 @@ paths:
       tags:
       - Autores
   /autores/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove um autor de acordo com o ID
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Autores'
+      summary: Delete author by ID
+      tags:
+      - Autores
     get:
       consumes:
       - application/json
