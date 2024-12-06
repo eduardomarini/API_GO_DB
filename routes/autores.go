@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/eduardomarini/API_GO_DB/models"
@@ -29,7 +30,7 @@ func GetAutores(db *gorm.DB) gin.HandlerFunc { // Passar a instância do banco d
 		// Retorna os autores como JSON
 		c.JSON(http.StatusOK, autores)
 
-		//fmt.Println("autores", autores)
+		fmt.Println("autores", autores)
 	}
 }
 
@@ -91,5 +92,30 @@ func PostAutor(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{"message": "Autor criado com sucesso", "autor": autor})
 
 		//fmt.Println("autorPOST", autor)
+	}
+}
+
+// PutAutorID godoc
+// @Summary      Remove author by ID
+// @Description  Remove um autor de acordo com o ID
+// @Tags         Autores
+// @Accept       json
+// @Produce      json
+// @Param        id path int true "Author ID"
+// @Success      200 {object} models.Autores
+// @Router       /autores/{id} [remove]
+func DeleteAutorID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var autor models.Autores
+		id := c.Param("id")
+
+		// Remove o autor através do ID
+		err := db.Where("id = ?", id).First(&autor).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar a categoria"})
+			return
+		}
+		c.JSON(http.StatusOK, autor)
 	}
 }
