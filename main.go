@@ -60,7 +60,7 @@ func main() {
 	r.POST("/usuarios", routes.PostUsuario(database))
 
 	//remover autores por ID
-	r.DELETE("/autores/:id", routes.RemoveAutorID(database))
+	r.DELETE("/autores/:id", routes.DeleteAutorID(database))
 
 	// Configura a rota para a documentação do swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
