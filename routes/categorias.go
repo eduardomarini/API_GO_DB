@@ -84,3 +84,32 @@ func PostCategoria(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{"message": "Categoria criada com sucesso", "categoria": categoria})
 	}
 }
+
+// DeleteCategoriaID godoc
+// @Summary      Delete category by ID
+// @Description  Deleta uma categoria de acordo com o ID
+// @Tags         Categorias
+// @Accept       json
+// @Produce      json
+// @Param        id path int true "Category ID"
+// @Success      200 {string} string
+// @Router       /categorias/{id} [delete]
+func DeleteCategoriaID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var categoria models.Categorias
+		id := c.Param("id")
+
+		// Realiza a consulta no banco de dados
+		if err := db.Where("id = ?", id).First(&categoria).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"erro": "Erro ao recuperar categoria"})
+			return
+		}
+
+		// Deleta categoria
+		if err := db.Delete(&categoria).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar categoria"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Categoria deletada com sucesso"})
+	}
+}

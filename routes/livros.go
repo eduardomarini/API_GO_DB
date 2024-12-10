@@ -84,3 +84,33 @@ func PostLivro(db *gorm.DB) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{"message": "Livro criado com sucesso", "Livro": livro})
 	}
 }
+
+// DeleteLivroID godoc
+// @Summary Delete book by ID
+// @Description Deleta um livro de acordom com o ID
+// @Tags Livros
+// @Accept json
+// @Produce json
+// @Param id path in true "Book ID"
+// @Success 200 {object} models.Livros
+// @Router /livros/{id} [delete]
+func DeleteLivroID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var livro models.Livros
+		id := c.Param("id")
+
+		// Consulta o livro pelo ID
+		err := db.Where("id = ?", id).First(&livro).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar o livro"})
+			return
+		}
+
+		// deleta o livro
+		if err := db.Delete(&livro).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar o Livro"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Livro deletado com sucesso"})
+	}
+}

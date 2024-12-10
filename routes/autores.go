@@ -112,7 +112,7 @@ func DeleteAutorID(db *gorm.DB) gin.HandlerFunc {
 		// Consulta o autor pelo ID
 		err := db.Where("id = ?", id).First(&autor).Error
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar a categoria"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar o autor"})
 			return
 		}
 

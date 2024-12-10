@@ -164,6 +164,26 @@ paths:
       tags:
       - Categorias
   /categorias/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deleta uma categoria de acordo com o ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete category by ID
+      tags:
+      - Categorias
     get:
       consumes:
       - application/json
