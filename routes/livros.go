@@ -33,7 +33,7 @@ func GetLivros(db *gorm.DB) gin.HandlerFunc { // Passar a instância do banco de
 
 // GetLivroID godoc
 // @Summary Retrieve book by ID
-// @Descpription Obtém um livro de acordo com o ID
+// @Description Obtém um livro de acordo com o ID
 // @Tags Livros
 // @Accept json
 // @Produce json
@@ -55,7 +55,7 @@ func GetLivroID(db *gorm.DB) gin.HandlerFunc {
 	}
 }
 
-// postLivro godoc
+// PostLivro godoc
 // @Summary Add a new book
 // @Description Adiciona um novo livro
 // @Tags Livros
@@ -87,11 +87,11 @@ func PostLivro(db *gorm.DB) gin.HandlerFunc {
 
 // DeleteLivroID godoc
 // @Summary Delete book by ID
-// @Description Deleta um livro de acordom com o ID
+// @Description Remove um livro de acordo com o ID
 // @Tags Livros
 // @Accept json
 // @Produce json
-// @Param id path in true "Book ID"
+// @Param id path int true "Book ID"
 // @Success 200 {object} models.Livros
 // @Router /livros/{id} [delete]
 func DeleteLivroID(db *gorm.DB) gin.HandlerFunc {
@@ -111,6 +111,6 @@ func DeleteLivroID(db *gorm.DB) gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar o Livro"})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"message": "Livro deletado com sucesso"})
+		c.JSON(http.StatusOK, livro)
 	}
 }

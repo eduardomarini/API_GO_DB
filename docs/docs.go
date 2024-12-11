@@ -312,6 +312,7 @@ const docTemplate = `{
         },
         "/livros/{id}": {
             "get": {
+                "description": "Obtém um livro de acordo com o ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -322,6 +323,36 @@ const docTemplate = `{
                     "Livros"
                 ],
                 "summary": "Retrieve book by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Livros"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um livro de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Delete book by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -412,6 +443,36 @@ const docTemplate = `{
                     "Usuários"
                 ],
                 "summary": "Retrieve user by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deleta um usuário de acordo com o ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Delete user by ID",
                 "parameters": [
                     {
                         "type": "integer",

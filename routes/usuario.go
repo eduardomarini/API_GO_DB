@@ -89,7 +89,7 @@ func PostUsuario(db *gorm.DB) gin.HandlerFunc {
 // DeleteUsuarioID godoc
 // @Summary Delete user by ID
 // @Description Deleta um usuário de acordo com o ID
-// @Tags Usuarios
+// @Tags Usuários
 // @Accept json
 // @Produce json
 // @Param id path int true "User ID"

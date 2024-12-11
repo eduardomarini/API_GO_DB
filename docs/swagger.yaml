@@ -243,9 +243,30 @@ paths:
       tags:
       - Livros
   /livros/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove um livro de acordo com o ID
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Livros'
+      summary: Delete book by ID
+      tags:
+      - Livros
     get:
       consumes:
       - application/json
+      description: Obtém um livro de acordo com o ID
       parameters:
       - description: Book ID
         in: path
@@ -301,6 +322,26 @@ paths:
       tags:
       - Usuários
   /usuarios/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deleta um usuário de acordo com o ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Usuarios'
+      summary: Delete user by ID
+      tags:
+      - Usuários
     get:
       consumes:
       - application/json
