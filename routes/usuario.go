@@ -85,3 +85,33 @@ func PostUsuario(db *gorm.DB) gin.HandlerFunc {
 
 	}
 }
+
+// DeleteUsuarioID godoc
+// @Summary Delete user by ID
+// @Description Deleta um usuário de acordo com o ID
+// @Tags Usuarios
+// @Accept json
+// @Produce json
+// @Param id path int true "User ID"
+// @Success 200 {object} models.Usuarios
+// @Router /usuarios/{id} [delete]
+func DeleteUsuarioID(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var usuario models.Usuarios
+		id := c.Param("id")
+
+		// Consulta o usuario por ID
+		err := db.Where("id = ?", id).First(&usuario).Error
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao recuperar o usuário"})
+			return
+		}
+
+		// deleta usuário
+		if err := db.Delete(&usuario).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar o usuário"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Usuário deletado com sucesso"})
+	}
+}
